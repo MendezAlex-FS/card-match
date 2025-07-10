@@ -15,7 +15,7 @@ let cards: Card[] = [];
 let turnedCards: Card[] = [];
 let tries = 3;
 
-function shuffle<T>(array: T[]): T[] {
+function shuffle(array: string[]): string[] {
     return array.sort(() => Math.random() - 0.5);
 }
 
@@ -67,9 +67,12 @@ function startGame(): void {
     document.querySelector("#tries-left")!.textContent = `Attempts Left: ${tries}`;
     document.querySelector("#results")!.innerHTML = "&nbsp;";
 
+    // Create the cars
     cards = values.map((value, index) => {
         const card = document.createElement("article");
         card.className = "card";
+
+        // This structure is for the flip effect
         card.innerHTML = `
         <div class="card-inner">
             <div class="card-front"></div>
