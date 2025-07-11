@@ -14,6 +14,7 @@ type Card = {
 let cards: Card[] = [];
 let turnedCards: Card[] = [];
 let tries = 3;
+let lockBoard = false;
 
 function shuffle(array: string[]): string[] {
     return array.sort(() => Math.random() - 0.5);
@@ -44,6 +45,8 @@ function compareCards(): void {
 }
 
 function flipCard(index: number): void {
+    if (lockBoard) return;
+
     const card = cards[index];
     if (card.matched || turnedCards.includes(card)) return;
 
@@ -51,7 +54,11 @@ function flipCard(index: number): void {
     turnedCards.push(card);
 
     if (turnedCards.length === 2) {
-        setTimeout(compareCards, 600);
+        lockBoard = true;
+        setTimeout(() => {
+            compareCards();
+            lockBoard = false;
+        }, 600);
     }
 }
 
